@@ -1,407 +1,327 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>생태와 환경 — 질문 모음</title>
-  <style>
-    :root{
-      --bg1: #0f172a;
-      --accent-a: #ff6ec7;
-      --accent-b: #6bffb8;
-      --accent-c: #7aa2ff;
-      --glass: rgba(255,255,255,0.06);
-      --glass-2: rgba(255,255,255,0.04);
-      --card-shadow: 0 8px 30px rgba(2,6,23,0.6);
-      --radius: 16px;
-      --max-width: 1400px;
-      --gap: 20px;
-      --text: #ecf0f6;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", "Helvetica Neue", Arial;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>생태와 환경 — 질문 10선</title>
+<style>
+  /* ===========================
+     기본값 & 컬러 팔레트
+     =========================== */
+  :root{
+    --bg-1: #071122;
+    --bg-2: #0f1b2e;
+    --glass: rgba(255,255,255,0.04);
+    --muted: rgba(230,235,245,0.9);
+    --accent1: #ff6ec7; /* 핑크 */
+    --accent2: #7aa2ff; /* 블루 */
+    --accent3: #6bffb8; /* 민트 */
+    --card-radius: 14px;
+    --gap: 20px;
+    font-family: "Noto Sans KR", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
 
-    /* Full-bleed gradient background */
-    html,body{
-      height:100%;
-      margin:0;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(122,162,255,0.12), transparent 8%),
-                  radial-gradient(1000px 500px at 90% 90%, rgba(107,255,184,0.08), transparent 8%),
-                  linear-gradient(135deg, #071020 0%, #0b1224 40%, #0f172a 100%);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
+  /* 전체 화면 배경 */
+  html,body{height:100%;margin:0}
+  body{
+    background:
+      radial-gradient(600px 300px at 10% 10%, rgba(122,162,255,0.08), transparent 10%),
+      radial-gradient(500px 280px at 90% 90%, rgba(107,255,184,0.06), transparent 12%),
+      linear-gradient(180deg,var(--bg-1),var(--bg-2));
+    color:var(--muted);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
 
-    .wrap{
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:flex-start;
-      padding:48px 28px;
-      box-sizing:border-box;
-      gap:28px;
-    }
+  /* 레이아웃: 화면 꽉 채우기 */
+  .app{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+    padding:28px;
+    box-sizing:border-box;
+  }
 
-    header{
-      width:100%;
-      max-width:var(--max-width);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-    }
+  /* 헤더 */
+  header.app-header{
+    display:flex;
+    gap:16px;
+    align-items:center;
+    justify-content:space-between;
+    max-width:1400px;
+    margin:0 auto;
+    width:100%;
+  }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:14px;
-    }
+  .brand{
+    display:flex;
+    gap:14px;
+    align-items:center;
+  }
 
-    .logo {
-      width:60px;
-      height:60px;
-      border-radius:14px;
-      background: linear-gradient(135deg, var(--accent-a), var(--accent-b) 45%, var(--accent-c) 100%);
-      box-shadow: 0 6px 20px rgba(122,162,255,0.14), inset 0 -6px 20px rgba(0,0,0,0.12);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:800;
-      color:#07102a;
-      font-size:20px;
-      letter-spacing:0.6px;
-    }
+  .logo{
+    width:62px;height:62px;border-radius:12px;
+    background:linear-gradient(135deg,var(--accent1),var(--accent3) 45%,var(--accent2));
+    display:flex;align-items:center;justify-content:center;
+    font-weight:900;color:#07102a;font-size:22px;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.6), inset 0 -6px 18px rgba(255,255,255,0.06);
+  }
 
-    h1{
-      margin:0;
-      font-size:20px;
-      line-height:1;
-      letter-spacing:0.2px;
-      font-weight:700;
-    }
+  .title h1{margin:0;font-size:20px;letter-spacing:0.2px}
+  .title p{margin:2px 0 0;font-size:13px;opacity:0.95;color:rgba(230,235,245,0.88)}
 
-    p.lead{
-      margin:0;
-      opacity:0.9;
-      font-size:13px;
-      color:rgba(236,240,246,0.85);
-    }
+  /* 헤더 컨트롤 */
+  .controls{display:flex;gap:10px;align-items:center}
+  .btn{
+    background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border:1px solid rgba(255,255,255,0.06);
+    color:var(--muted);
+    padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.6);transition:transform .14s ease;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2)); color:#081226; border:0}
+  .btn.ghost{background:transparent;border:1px dashed rgba(255,255,255,0.04)}
 
-    /* Controls */
-    .controls{
-      display:flex;
-      gap:12px;
-      align-items:center;
-    }
+  /* 그리드: 꽉 채우는 폭, 반응형 */
+  main{
+    width:100%;
+    max-width:1400px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns: repeat( auto-fit, minmax(260px, 1fr) );
+    gap:var(--gap);
+    align-items:start;
+    box-sizing:border-box;
+    padding-bottom:28px;
+  }
 
-    .btn {
-      appearance:none;
-      border:0;
-      padding:10px 14px;
-      border-radius:12px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      color:var(--text);
-      font-weight:600;
-      cursor:pointer;
-      box-shadow:var(--card-shadow);
-      transition: transform .18s ease, box-shadow .18s ease, opacity .12s ease;
-    }
-    .btn:active{ transform: translateY(1px) }
-    .btn.ghost{ background:transparent; border:1px solid rgba(255,255,255,0.06) }
+  /* 카드 스타일 */
+  .card{
+    position:relative;
+    padding:18px;
+    border-radius:var(--card-radius);
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 12px 30px rgba(2,6,23,0.6);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    min-height:140px;
+    transition:transform .22s cubic-bezier(.2,.9,.2,1), box-shadow .22s;
+  }
+  .card:hover{ transform:translateY(-8px); box-shadow: 0 22px 60px rgba(2,6,23,0.75) }
 
-    /* Grid of cards */
-    .grid{
-      width:100%;
-      max-width:var(--max-width);
-      display:grid;
-      grid-template-columns: repeat( auto-fit, minmax(260px, 1fr) );
-      gap:var(--gap);
-      align-items:start;
-      margin-top:6px;
-    }
+  /* 데코: 우상단 컬러 스트랩 */
+  .card::before{
+    content:"";
+    position:absolute; right:-60px; top:-40px;
+    width:200px;height:200px;
+    background: conic-gradient(from 120deg, rgba(255,110,199,0.16), rgba(122,162,255,0.12), rgba(107,255,184,0.08));
+    transform:rotate(22deg); filter:blur(30px); z-index:0; pointer-events:none;
+  }
+  .card > *{position:relative; z-index:1}
 
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-      border-radius: var(--radius);
-      padding:18px;
-      box-shadow: var(--card-shadow);
-      position:relative;
-      overflow:hidden;
-      min-height:120px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      transition: transform .26s cubic-bezier(.2,.9,.2,1), box-shadow .26s;
-      border: 1px solid rgba(255,255,255,0.03);
-    }
+  .qnum{font-size:12px;font-weight:800;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.04);display:inline-block}
+  .qtitle{margin:0;font-size:16px;font-weight:800;line-height:1.28}
+  .qdesc{font-size:13px;color:rgba(230,235,245,0.82)}
 
-    .card:hover{
-      transform: translateY(-8px) scale(1.01);
-      box-shadow: 0 18px 50px rgba(2,6,23,0.75);
-    }
+  .meta{margin-top:auto;display:flex;align-items:center;justify-content:space-between;font-size:13px;color:rgba(230,235,245,0.78)}
 
-    .badge{
-      font-size:12px;
-      font-weight:700;
-      padding:6px 10px;
-      border-radius:999px;
-      align-self:flex-start;
-      background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      color:var(--text);
-      border:1px solid rgba(255,255,255,0.04);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-    }
+  /* 하단 바 */
+  footer.app-footer{
+    max-width:1400px;margin:0 auto;width:100%;
+    display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px;
+    background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.02);
+    box-shadow: 0 8px 26px rgba(2,6,23,0.5);
+  }
 
-    .q{
-      font-size:16px;
-      font-weight:700;
-      line-height:1.28;
-      margin:0;
-    }
+  /* 반응형 조정 */
+  @media (max-width:720px){
+    .logo{width:50px;height:50px;font-size:18px}
+    .title h1{font-size:18px}
+    .app{padding:18px}
+  }
 
-    .meta{
-      margin-top:auto;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      color:rgba(236,240,246,0.75);
-      font-size:13px;
-    }
-
-    .icon {
-      width:38px;
-      height:38px;
-      border-radius:10px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:800;
-      color:#07102a;
-      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      border:1px solid rgba(255,255,255,0.03);
-    }
-
-    /* colorful slashes top-right decorations */
-    .card::after{
-      content:"";
-      position:absolute;
-      right:-60px;
-      top:-40px;
-      width:220px;
-      height:220px;
-      background: conic-gradient(from 120deg, rgba(255,110,199,0.18), rgba(122,162,255,0.12), rgba(107,255,184,0.08));
-      transform: rotate(25deg);
-      filter: blur(28px);
-      z-index:0;
-      pointer-events:none;
-    }
-
-    /* make inner content above decoration */
-    .card > * { position:relative; z-index:1 }
-
-    footer{
-      width:100%;
-      max-width:var(--max-width);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:12px 16px;
-      border-radius:12px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.02);
-      box-shadow: 0 8px 30px rgba(2,6,23,0.55);
-      color:rgba(236,240,246,0.7);
-      margin-top:18px;
-    }
-
-    @media (max-width:720px){
-      .wrap{ padding:24px 16px }
-      .logo{ width:50px; height:50px; font-size:18px }
-      h1{ font-size:18px }
-      .badge{ font-size:11px; padding:5px 8px }
-    }
-  </style>
+  /* 인쇄용 (심플) */
+  @media print{
+    body{background:white;color:#000}
+    .card{box-shadow:none;border:1px solid #ccc}
+    .controls, .app-footer { display:none }
+  }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logo">E</div>
-        <div>
-          <h1>생태와 환경 — 토론용 질문 10선</h1>
-          <p class="lead">수업, 토론, 리서치 아이스브레이커로 바로 쓸 수 있는 질문 모음</p>
+  <div class="app" role="main" aria-labelledby="pageTitle">
+    <header class="app-header">
+      <div class="brand" aria-hidden="false">
+        <div class="logo" aria-hidden="true">E</div>
+        <div class="title">
+          <h1 id="pageTitle">생태와 환경 — 토론용 질문 10개</h1>
+          <p>수업·토론·리서치에 바로 쓰는 질문 카드 (모던 · 화려)</p>
         </div>
       </div>
 
-      <div class="controls" aria-hidden="false">
-        <button class="btn ghost" onclick="shuffleQuestions()">섞기</button>
-        <button class="btn" onclick="copyAll()">모두 복사</button>
+      <div class="controls" role="toolbar" aria-label="controls">
+        <button class="btn ghost" id="shuffleBtn" title="카드 순서 섞기">섞기</button>
+        <button class="btn" id="copyBtn" title="질문을 모두 클립보드에 복사">모두 복사</button>
+        <button class="btn primary" id="downloadBtn" title="질문을 마크다운 파일로 다운로드">마크다운으로 다운</button>
       </div>
     </header>
 
-    <main class="grid" id="grid">
-      <!-- Cards: 10 questions -->
-      <article class="card">
-        <div class="badge">Q1</div>
-        <h3 class="q">우리 지역에서 가장 시급한 환경문제는 무엇이며, 그 원인은 무엇인가?</h3>
-        <div class="meta">
-          <div style="display:flex;gap:8px;align-items:center">
-            <div class="icon" style="background:linear-gradient(135deg,var(--accent-a),var(--accent-c));">1</div>
-            <div>지역 조사 · 정책 토론</div>
-          </div>
-          <div>수업용</div>
-        </div>
+    <main id="grid" aria-live="polite">
+      <!-- 질문 카드들 (10개) -->
+      <article class="card" data-q="1">
+        <div class="qnum">Q1</div>
+        <h3 class="qtitle">우리 지역에서 가장 시급한 환경문제는 무엇이며, 그 원인은 무엇인가?</h3>
+        <div class="meta"><span>지역 조사 · 정책</span><span>수업용</span></div>
       </article>
 
-      <article class="card">
-        <div class="badge">Q2</div>
-        <h3 class="q">생물다양성이 감소하면 인간 사회에 어떤 직접적·간접적 영향이 생길까?</h3>
-        <div class="meta">
-          <div style="display:flex;gap:8px;align-items:center">
-            <div class="icon" style="background:linear-gradient(135deg,var(--accent-b),var(--accent-a));">2</div>
-            <div>과학적 근거 · 사례</div>
-          </div>
-          <div>리서치</div>
-        </div>
+      <article class="card" data-q="2">
+        <div class="qnum">Q2</div>
+        <h3 class="qtitle">생물다양성 감소가 식량안보·보건·경제에 미치는 영향은 무엇인가?</h3>
+        <div class="meta"><span>과학 · 사례</span><span>리서치</span></div>
       </article>
 
-      <article class="card">
-        <div class="badge">Q3</div>
-        <h3 class="q">기후변화와 사회적 불평등(예: 소득, 인종, 지리)은 어떻게 연결되는가?</h3>
-        <div class="meta">
-          <div style="display:flex;gap:8px;align-items:center">
-            <div class="icon" style="background:linear-gradient(135deg,var(--accent-c),var(--accent-b));">3</div>
-            <div>윤리 · 정책</div>
-          </div>
-          <div>토론</div>
-        </div>
+      <article class="card" data-q="3">
+        <div class="qnum">Q3</div>
+        <h3 class="qtitle">기후변화가 사회적 불평등(소득·인종·지리)에 어떻게 영향을 주는가?</h3>
+        <div class="meta"><span>윤리 · 정책</span><span>토론</span></div>
       </article>
 
-      <article class="card">
-        <div class="badge">Q4</div>
-        <h3 class="q">플라스틱 사용을 줄이기 위해 개인, 기업, 정부는 각각 어떤 현실적 조치를 취해야 할까?</h3>
-        <div class="meta">
-          <div style="display:flex;gap:8px;align-items:center">
-            <div class="icon" style="background:linear-gradient(135deg,var(--accent-a),var(--accent-b));">4</div>
-            <div>실천 전략</div>
-          </div>
-          <div>워크숍</div>
-        </div>
+      <article class="card" data-q="4">
+        <div class="qnum">Q4</div>
+        <h3 class="qtitle">플라스틱 문제 해결을 위해 개인·기업·정부는 어떤 역할을 해야 하는가?</h3>
+        <div class="meta"><span>실천 전략</span><span>워크숍</span></div>
       </article>
 
-      <article class="card">
-        <div class="badge">Q5</div>
-        <h3 class="q">도시 녹지(공원, 옥상정원 등)는 기후·건강에 어떤 긍정적 효과가 있는가?</h3>
-        <div class="meta">
-          <div style="display:flex;gap:8px;align-items:center">
-            <div class="icon" style="background:linear-gradient(135deg,var(--accent-b),var(--accent-c));">5</div>
-            <div>건강 · 설계</div>
-          </div>
-          <div>프로젝트</div>
-        </div>
+      <article class="card" data-q="5">
+        <div class="qnum">Q5</div>
+        <h3 class="qtitle">도시 녹지는 기후 적응과 시민 건강에 어떤 도움을 주는가?</h3>
+        <div class="meta"><span>설계 · 보건</span><span>프로젝트</span></div>
       </article>
 
-      <article class="card">
-        <div class="badge">Q6</div>
-        <h3 class="q">에너지 전환(화석 → 재생)에 따른 경제·사회적 비용과 이득을 어떻게 평가할 것인가?</h3>
-        <div class="meta">
-          <div style="display:flex;gap:8px;align-items:center">
-            <div class="icon" style="background:linear-gradient(135deg,var(--accent-c),var(--accent-a));">6</div>
-            <div>경제 · 정책</div>
-          </div>
-          <div>토론</div>
-        </div>
+      <article class="card" data-q="6">
+        <div class="qnum">Q6</div>
+        <h3 class="qtitle">화석연료에서 재생에너지로 전환할 때 발생하는 경제적·사회적 비용과 이득은?</h3>
+        <div class="meta"><span>경제 · 정책</span><span>토론</span></div>
       </article>
 
-      <article class="card">
-        <div class="badge">Q7</div>
-        <h3 class="q">전통적 지식(토착민의 환경관리법)을 현대 환경관리 체계에 통합할 수 있을까? 어떻게?</h3>
-        <div class="meta">
-          <div style="display:flex;gap:8px;align-items:center">
-            <div class="icon" style="background:linear-gradient(135deg,var(--accent-a),var(--accent-c));">7</div>
-            <div>문화 · 보전</div>
-          </div>
-          <div>에세이</div>
-        </div>
+      <article class="card" data-q="7">
+        <div class="qnum">Q7</div>
+        <h3 class="qtitle">토착지식(전통관리법)을 현대 환경관리 체계에 통합할 수 있는 방법은?</h3>
+        <div class="meta"><span>문화 · 보전</span><span>에세이</span></div>
       </article>
 
-      <article class="card">
-        <div class="badge">Q8</div>
-        <h3 class="q">농업과 생태계의 상호작용: 지속가능한 식량 시스템은 어떤 모습이어야 하는가?</h3>
-        <div class="meta">
-          <div style="display:flex;gap:8px;align-items:center">
-            <div class="icon" style="background:linear-gradient(135deg,var(--accent-b),var(--accent-a));">8</div>
-            <div>농업 · 지속가능성</div>
-          </div>
-          <div>프로젝트</div>
-        </div>
+      <article class="card" data-q="8">
+        <div class="qnum">Q8</div>
+        <h3 class="qtitle">지속가능한 농업은 생태계와 어떻게 상호작용해야 하는가?</h3>
+        <div class="meta"><span>농업 · 지속가능성</span><span>프로젝트</span></div>
       </article>
 
-      <article class="card">
-        <div class="badge">Q9</div>
-        <h3 class="q">미래 세대에게 환경을 보호해야 한다고 설득하려면 어떤 가치와 전략을 강조해야 할까?</h3>
-        <div class="meta">
-          <div style="display:flex;gap:8px;align-items:center">
-            <div class="icon" style="background:linear-gradient(135deg,var(--accent-c),var(--accent-b));">9</div>
-            <div>윤리 · 교육</div>
-          </div>
-          <div>수업자료</div>
-        </div>
+      <article class="card" data-q="9">
+        <div class="qnum">Q9</div>
+        <h3 class="qtitle">미래 세대에게 환경보호의 중요성을 설득하려면 어떤 가치와 전략을 강조해야 하는가?</h3>
+        <div class="meta"><span>교육 · 윤리</span><span>수업자료</span></div>
       </article>
 
-      <article class="card">
-        <div class="badge">Q10</div>
-        <h3 class="q">기술(예: 인공광합성, 탄소 포집)이 자연 기반 해법과 경쟁할까 보완할까 — 그 이유는?</h3>
-        <div class="meta">
-          <div style="display:flex;gap:8px;align-items:center">
-            <div class="icon" style="background:linear-gradient(135deg,var(--accent-a),var(--accent-b));">10</div>
-            <div>기술 · 환경</div>
-          </div>
-          <div>디베이트</div>
-        </div>
+      <article class="card" data-q="10">
+        <div class="qnum">Q10</div>
+        <h3 class="qtitle">기술 기반 해법(인공광합성·탄소포집)은 자연 기반 해법과 경쟁할까? 보완할까?</h3>
+        <div class="meta"><span>기술 · 환경</span><span>디베이트</span></div>
       </article>
     </main>
 
-    <footer>
-      <div>원하시면 질문을 영어 번역하거나, 수업용 활동지로 바꿔드릴게요.</div>
-      <div style="font-size:13px;opacity:0.9">© 생태와 환경 질문집</div>
+    <footer class="app-footer" role="contentinfo">
+      <div>원하면 각 질문에 대한 토론 가이드(핵심 포인트·시간·활동안)도 자동 생성해 드립니다.</div>
+      <div style="opacity:.9">© 질문집 • 자동생성</div>
     </footer>
   </div>
 
-  <script>
-    // Shuffle card order
-    function shuffleQuestions(){
-      const grid = document.getElementById('grid');
-      const nodes = Array.from(grid.children);
-      for(let i = nodes.length -1; i>0; i--){
-        const j = Math.floor(Math.random() * (i + 1));
-        [nodes[i], nodes[j]] = [nodes[j], nodes[i]];
-      }
-      // re-append in new order
-      nodes.forEach(n => grid.appendChild(n));
-    }
+<script>
+/* ===== 유틸: 카드 내용 배열로 만들기 ===== */
+function getQuestionsArray(){
+  const cards = Array.from(document.querySelectorAll('.card'));
+  return cards.map(c=>{
+    return {
+      num: c.getAttribute('data-q'),
+      title: c.querySelector('.qtitle')?.textContent?.trim() || '',
+      meta: c.querySelector('.meta')?.textContent?.trim() || ''
+    };
+  });
+}
 
-    // Copy all questions to clipboard (plain text)
-    function copyAll(){
-      const qs = Array.from(document.querySelectorAll('.card .q'))
-                   .map((el,i)=> (i+1) + '. ' + el.textContent.trim())
-                   .join('\\n\\n');
-      navigator.clipboard?.writeText(qs).then(()=>{
-        alert('질문 10개를 복사했습니다. 붙여넣기 해 사용하세요.');
-      }).catch(()=>{ 
-        // fallback
-        const ta = document.createElement('textarea');
-        ta.value = qs;
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand('copy'); alert('질문을 복사했습니다.'); }
-        catch(e){ alert('복사에 실패했습니다. 수동으로 복사해주세요.'); }
-        ta.remove();
-      });
+/* ===== 섞기 ===== */
+document.getElementById('shuffleBtn').addEventListener('click', ()=>{
+  const grid = document.getElementById('grid');
+  const nodes = Array.from(grid.children);
+  for(let i=nodes.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [nodes[i],nodes[j]]=[nodes[j],nodes[i]];
+  }
+  nodes.forEach(n=>grid.appendChild(n));
+  // 접근성 알림
+  announce('카드 순서를 섞었습니다.');
+});
+
+/* ===== 모두 복사 (텍스트) ===== */
+document.getElementById('copyBtn').addEventListener('click', async ()=>{
+  const qs = getQuestionsArray().map(q=> `${q.num}. ${q.title}`).join('\\n\\n');
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      await navigator.clipboard.writeText(qs);
+    } else {
+      // fallback
+      const ta = document.createElement('textarea');
+      ta.value = qs; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); ta.remove();
     }
-  </script>
+    alert('질문을 복사했습니다. 붙여넣기하여 사용하세요.');
+  }catch(e){
+    console.error(e);
+    alert('복사에 실패했습니다. 수동으로 복사하세요.');
+  }
+});
+
+/* ===== 마크다운 다운로드 ===== */
+document.getElementById('downloadBtn').addEventListener('click', ()=>{
+  const arr = getQuestionsArray();
+  const md = arr.map(q => `### ${q.num}. ${q.title}\\n\\n*메타:* ${q.meta}`).join('\\n\\n');
+  const blob = new Blob([md], {type:'text/markdown;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'ecology-questions.md';
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+});
+
+/* ===== 화면 읽기용 간단 알림 (숨김 엘리먼트 대신 간단 아나운스) ===== */
+function announce(text){
+  // 화면 읽기용 브라우저 알림 대신 간단한 토스트 (접근성 보완)
+  const el = document.createElement('div');
+  el.textContent = text;
+  Object.assign(el.style,{
+    position:'fixed',right:'18px',bottom:'18px',padding:'10px 14px',
+    background:'rgba(0,0,0,0.6)',color:'#fff',borderRadius:'10px',zIndex:9999
+  });
+  document.body.appendChild(el);
+  setTimeout(()=>{ el.style.transition='opacity .3s'; el.style.opacity='0'; setTimeout(()=>el.remove(),350) },1400);
+}
+
+/* ===== 키보드 단축키: S = 섞기, C = 복사, D = 다운로드 ===== */
+document.addEventListener('keydown', (e)=>{
+  if(e.key.toLowerCase()==='s'){ document.getElementById('shuffleBtn').click() }
+  if(e.key.toLowerCase()==='c'){ document.getElementById('copyBtn').click() }
+  if(e.key.toLowerCase()==='d'){ document.getElementById('downloadBtn').click() }
+});
+
+/* ===== 초기화: 포커스 제어 (접근성) ===== */
+window.addEventListener('load', ()=>{
+  document.getElementById('shuffleBtn').setAttribute('aria-pressed','false');
+});
+</script>
 </body>
 </html>
